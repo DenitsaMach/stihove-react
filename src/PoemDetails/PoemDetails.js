@@ -1,4 +1,5 @@
 import './PoemDetails.css';
+import Button from 'react-bootstrap/Button';
 
 function PoemDetails() {
 	return (
@@ -6,6 +7,7 @@ function PoemDetails() {
 			<div className="edit">
 				<i className="fa fa-pencil" style={{'backgroundColor':'#f6a617'}}> Edit</i>
 			</div>
+			<Button variant="primary">Редактирай!</Button>
 			<div className="author">Иван Вазов</div>
 			<div className="title">Молитва</div>
 			<div className="content">
