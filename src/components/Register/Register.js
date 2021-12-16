@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Row from 'react-bootstrap/Row';
@@ -6,14 +8,12 @@ import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Button from 'react-bootstrap/Button';
 
+import * as authService from '../../services/authService';
+import { useAuthContext } from '../../contexts/AuthContext';
+
 function Register() {
-    const initialValues = {
-        email: '',
-        name: '',
-        surname: '',
-        password: '',
-        passwordRepeat: '',
-    };
+    const navigate = useNavigate();
+    const { login } = useAuthContext();
     const validationRules = {
         email: yup.string().email().required(),
         name: yup.string().required(),
@@ -25,8 +25,15 @@ function Register() {
          }),
     };
     const onSubmitHandler = async (values) => {
-        await new Promise((r) => setTimeout(r, 500));
-        alert(JSON.stringify(values, null, 2));
+        authService.register(values.email, values.password, values.name, values.surname)
+            .then(authData => {
+                login({email: values.email});
+                navigate('/login');
+            })
+            .catch(err => {
+                // TODO: show notification
+                console.log(err);
+            });
     }
     const schema = yup.object().shape(validationRules);
     return (

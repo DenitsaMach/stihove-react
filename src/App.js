@@ -2,6 +2,7 @@
 
 import { Routes, Route} from 'react-router-dom';
 
+import {AuthProvider} from "./contexts/AuthContext";
 import Header from './components/Header/Header';
 import Navigation from './components/Navigation/Navigation';
 import Footer from './components/Footer/Footer';
@@ -17,7 +18,7 @@ import './App.css';
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Header />
       <main id = "site-content">
         <div id="mainContainer">
@@ -36,7 +37,7 @@ function App() {
         </div>
       </main>
       <Footer />
-    </>
+    </AuthProvider>
   );
 }
 
